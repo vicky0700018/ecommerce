@@ -25,13 +25,20 @@ class OtpController extends Controller
             ['otp' => $otp]
         );
 
-        // Email send (simple)
-        Mail::raw("Your OTP code is: $otp", function ($message) {
-            $message->to(Auth::user()->email)
-                    ->subject('Your Login OTP');
-        });
+        // Email send - लेकिन development में skip करेंगे
+        if (config('app.env') === 'production') {
+            Mail::raw("Your OTP code is: $otp", function ($message) {
+                $message->to(Auth::user()->email)
+                        ->subject('Your Login OTP');
+            });
+        }
 
-        return redirect()->route('otp.form')->with('success', 'OTP sent to your email');
+        // Development mode में OTP दिखाएं
+        $message = config('app.env') === 'local' 
+            ? "✅ OTP: $otp (Development Mode)"
+            : 'OTP sent to your email';
+
+        return redirect()->route('otp.form')->with('success', $message);
     }
 
     // OTP verify
