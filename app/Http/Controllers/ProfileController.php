@@ -57,4 +57,24 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Display user's addresses.
+     */
+    public function addresses(): View
+    {
+        return view('profile.addresses', [
+            'addresses' => Auth::user()->addresses()->get(),
+        ]);
+    }
+
+    /**
+     * Display user's orders.
+     */
+    public function orders(): View
+    {
+        return view('profile.orders', [
+            'orders' => Auth::user()->orders()->with('items.product')->orderBy('created_at', 'desc')->get(),
+        ]);
+    }
 }
