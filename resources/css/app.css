@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .bg-primary {
+        @apply bg-purple-200;
+    }
+    
+    body {
+        @apply text-purple-900;
+    }
+}
