@@ -10,9 +10,23 @@ class ProductController extends Controller
     /**
      * Display a listing of products.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $query = Product::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $products = $query->get();
         return view('products.index', compact('products'));
     }
 
@@ -35,6 +49,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'image_url' => 'nullable|url',
             'stock' => 'required|integer|min:0',
+            'category' => 'nullable|string',
         ]);
 
         Product::create($validated);
@@ -70,6 +85,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'image_url' => 'nullable|url',
             'stock' => 'required|integer|min:0',
+            'category' => 'nullable|string',
         ]);
 
         $product->update($validated);
