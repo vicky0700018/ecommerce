@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     git unzip curl libpq-dev nodejs npm \
     && docker-php-ext-install pdo pdo_pgsql
 
-# Copy project
+# Copy project files
 COPY . .
 
 # Install Composer
@@ -19,14 +19,13 @@ RUN composer install --no-dev --optimize-autoloader
 # Install Node dependencies & build Vite assets
 RUN npm install && npm run build
 
-# Set proper permissions
+# Permissions
 RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 10000
 
-CMD php artisan config:clear && \
-    php artisan cache:clear && \
-    php artisan route:clear && \
-    php artisan view:clear && \
+CMD php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache && \
     php artisan migrate --force && \
-    php -S 0.0.0.0:10000 -t public
+    php artisan serve --host=0.0.0.0 --port=10000
