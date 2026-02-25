@@ -59,7 +59,8 @@ class PaymentController extends Controller
                 // Real Stripe payment
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
                 
-                $amountInRupees = $total;
+                // Convert USD to INR for payment
+                $amountInRupees = Currency::convert($total, 'INR');
                 $paymentIntent = \Stripe\PaymentIntent::create([
                     'amount' => (int)($amountInRupees * 100),
                     'currency' => 'inr',
