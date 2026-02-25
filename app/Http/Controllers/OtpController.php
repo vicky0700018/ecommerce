@@ -25,7 +25,7 @@ class OtpController extends Controller
             ['otp' => $otp]
         );
 
-        // Email send - लेकिन development में skip करेंगे
+    
         if (config('app.env') === 'production') {
             Mail::raw("Your OTP code is: $otp", function ($message) {
                 $message->to(Auth::user()->email)
