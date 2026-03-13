@@ -27,7 +27,7 @@
                             </div>
                             <div>
                                 <p class="text-gray-700 text-sm font-bold">Total</p>
-                                <p class="text-purple-900 font-black text-lg">₹{{ number_format($order->total_amount * 83, 0) }}</p>
+                                <p class="text-purple-900 font-black text-lg">₹{{ number_format($order->total_amount, 0) }}</p>
                             </div>
                             <div>
                                 <p class="text-gray-700 text-sm font-bold">Status</p>
@@ -51,7 +51,7 @@
                                             {{ $item->product->name }} 
                                             <span class="text-gray-600">x{{ $item->quantity }}</span>
                                         </span>
-                                        <span class="text-purple-900 font-black">₹{{ number_format($item->price * $item->quantity * 83, 0) }}</span>
+                                        <span class="text-purple-900 font-black">₹{{ number_format($item->price * $item->quantity, 0) }}</span>
                                     </div>
                                 @endforeach
                             </div>
