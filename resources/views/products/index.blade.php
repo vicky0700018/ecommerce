@@ -4,9 +4,11 @@
 <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-5xl font-black text-purple-900">🎁 Our Premium Collection</h1>
+        @if(auth()->check() && auth()->user()->isAdmin())
         <a href="{{ route('products.create') }}" class="bg-primary text-black px-8 py-3 rounded-full hover:bg-blue-700 shadow-xl font-bold transform hover:scale-110 transition duration-300">
            <button class="bg-primary"> Add Product</button>
         </a>
+        @endif
     </div>
 
     <div class="mb-6">
@@ -35,7 +37,9 @@
     @if ($products->isEmpty())
         <div class="text-center py-16 bg-primary rounded-2xl shadow-2xl border-2 border-blue-600">
             <p class="text-black text-xl mb-4 font-bold">No products found.</p>
+            @if(auth()->check() && auth()->user()->isAdmin())
             <a href="{{ route('products.create') }}" class="bg-blue-600 text-black px-8 py-3 rounded-full hover:bg-blue-700 inline-block font-bold">Create one now!</a>
+            @endif
         </div>
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -80,6 +84,7 @@
                             @endauth
                         </div>
 
+                        @if(auth()->check() && auth()->user()->isAdmin())
                         <div class="flex gap-2">
                             <a href="{{ route('products.edit', $product) }}" class="flex-1 bg-yellow-500 text-black px-3 py-2 rounded-lg text-center hover:bg-yellow-600 text-sm font-bold shadow-md transition transform hover:scale-105">
                                 ✏️ Edit
@@ -93,6 +98,7 @@
                                 </button>
                             </form>
                         </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
