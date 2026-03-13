@@ -35,6 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403, 'Unauthorized access');
         return view('products.create');
     }
 
@@ -43,6 +44,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403, 'Unauthorized access');
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -71,6 +74,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403, 'Unauthorized access');
         return view('products.edit', compact('product'));
     }
 
@@ -79,6 +83,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403, 'Unauthorized access');
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -99,6 +105,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403, 'Unauthorized access');
+
         $product->delete();
 
         return redirect()->route('products.index')
