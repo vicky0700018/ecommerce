@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->email === 'vs2734514@gmail.com';
+    }
 }
