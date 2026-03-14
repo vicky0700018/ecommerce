@@ -87,24 +87,87 @@
     </section>
 
     <!-- Products Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16" style="background-color: #f3e8ff;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="text-3xl font-bold text-center mb-12 text-gray-900">Featured Products</h3>
-            <div class="grid md:grid-cols-4 gap-6">
-                @for ($i = 1; $i <= 4; $i++)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                    <div class="aspect-square bg-gray-200 flex items-center justify-center text-6xl">📦</div>
-                    <div class="p-4">
-                        <h5 class="font-bold text-lg mb-2 text-gray-900">Product {{ $i }}</h5>
-                        <p class="text-gray-600 text-sm mb-4">High quality product at great price</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-indigo-600">${{ 49.99 + ($i * 10) }}</span>
-                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Add to Cart</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($products->take(8) as $product)
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300">
+                        @if ($product->image_url)
+                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-56 object-cover">
+                        @else
+                            <div class="w-full h-56 bg-gray-200 flex items-center justify-center">
+                                <span class="text-gray-500 font-medium">No Image</span>
+                            </div>
+                        @endif
+                        
+                        <div class="p-5 flex-1 flex flex-col">
+                            <h3 class="text-lg font-bold mb-2 text-gray-900 leading-tight">{{ $product->name }}</h3>
+                            @if ($product->category)
+                                <div class="mb-3">
+                                    <span class="inline-block bg-purple-100 text-purple-700 text-[10px] px-2 py-1 rounded-full uppercase font-bold tracking-wider">{{ $product->category }}</span>
+                                </div>
+                            @endif
+                            @if ($product->description)
+                                <p class="text-gray-600 text-[13px] mb-4 flex-1">{{ Str::limit($product->description, 80) }}</p>
+                            @endif
+                            <div class="flex justify-between items-center mb-5 mt-auto">
+                                <span class="text-3xl font-bold text-blue-600">₹{{ number_format($product->price, 0) }}</span>
+                                <span class="text-xs bg-blue-600 text-white px-3 py-1 rounded-full flex items-center gap-1 font-semibold shadow-sm tracking-wide">
+                                    📦 {{ $product->stock }}
+                                </span>
+                            </div>
+                            
+                            <div class="mt-auto">
+                                @auth
+                                    <form action="{{ route('cart.store') }}" method="POST" class="w-full">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white px-4 py-3 rounded-lg text-sm font-bold transition flex justify-center items-center gap-2 shadow-sm" 
+                                            {{ $product->stock == 0 ? 'disabled' : '' }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                            </svg>
+                                            {{ $product->stock == 0 ? 'Out of Stock' : 'Add to Cart' }}
+                                        </button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('login') }}" onclick="alert('Please login first to add items to your cart!');" class="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white px-4 py-3 rounded-lg text-sm font-bold transition flex justify-center items-center gap-2 shadow-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                        Add to Cart
+                                    </a>
+                                @endauth
+                            </div>
+                            
+                            @if(auth()->check() && auth()->user()->isAdmin())
+                            <div class="flex gap-2 mt-3">
+                                <a href="{{ route('products.edit', $product) }}" class="flex-1 bg-[#fbbf24] text-white px-3 py-2 rounded-lg text-center hover:bg-[#f59e0b] text-sm font-bold shadow-sm transition flex justify-center items-center gap-1">
+                                    ✏️ Edit
+                                </a>
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="flex-1 flex">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="w-full bg-[#ef4444] text-white px-3 py-2 rounded-lg hover:bg-[#dc2626] text-sm font-bold shadow-sm transition flex justify-center items-center gap-1"
+                                        onclick="return confirm('Are you sure?')">
+                                        🗑️ Delete
+                                    </button>
+                                </form>
+                            </div>
+                            @endif
                         </div>
                     </div>
+                @endforeach
             </div>
-            @endfor
-        </div>
+            @if($products->count() > 8)
+                <div class="text-center mt-12">
+                    <a href="{{ route('products.index') }}" class="inline-block bg-white text-indigo-600 font-bold border-2 border-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-50 transition">
+                        View All Products
+                    </a>
+                </div>
+            @endif
         </div>
     </section>
 
