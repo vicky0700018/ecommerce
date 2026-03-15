@@ -218,6 +218,7 @@
             </div>
             <div class="border-t border-gray-800 pt-8 text-center">
                 <p>&copy; 2026 ShopHub. All rights reserved.</p>
+                <p>Made with ❤️ by Vicky</p> 
             </div>
         </div>
     </footer>
