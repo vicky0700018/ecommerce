@@ -26,4 +26,9 @@ class Product extends Model
             'updated_at' => 'datetime',
         ];
     }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }

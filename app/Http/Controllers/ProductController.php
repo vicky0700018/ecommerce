@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -53,9 +55,20 @@ class ProductController extends Controller
             'image_url' => 'nullable|url',
             'stock' => 'required|integer|min:0',
             'category' => 'nullable|string',
+            'new_image_urls.*' => 'nullable|url'
         ]);
 
-        Product::create($validated);
+        $product = Product::create($validated);
+
+        if ($request->has('new_image_urls')) {
+            foreach ($request->input('new_image_urls') as $url) {
+                if (!empty($url)) {
+                    $product->images()->create([
+                        'image_path' => $url
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully!');
@@ -92,9 +105,58 @@ class ProductController extends Controller
             'image_url' => 'nullable|url',
             'stock' => 'required|integer|min:0',
             'category' => 'nullable|string',
+            'new_image_urls.*' => 'nullable|url',
+            'existing_images.*' => 'nullable|url'
         ]);
 
         $product->update($validated);
+
+        // Handle existing images
+        if ($request->has('existing_images')) {
+            $existingIds = array_keys($request->input('existing_images'));
+            
+            // Delete images that were removed from the UI
+            $product->images()->whereNotIn('id', $existingIds)->get()->each(function ($img) {
+                if (str_starts_with($img->image_path, '/storage/')) {
+                    Storage::disk('public')->delete(str_replace('/storage/', '', $img->image_path));
+                }
+                $img->delete();
+            });
+
+            // Update remaining ones
+            foreach ($request->input('existing_images') as $id => $url) {
+                if (empty($url)) {
+                    $img = $product->images()->find($id);
+                    if ($img) {
+                        if (str_starts_with($img->image_path, '/storage/')) {
+                            Storage::disk('public')->delete(str_replace('/storage/', '', $img->image_path));
+                        }
+                        $img->delete();
+                    }
+                } else {
+                    $product->images()->where('id', $id)->update(['image_path' => $url]);
+                }
+            }
+        } else {
+            // Unset all existing if empty
+            $product->images->each(function ($img) {
+                if (str_starts_with($img->image_path, '/storage/')) {
+                    Storage::disk('public')->delete(str_replace('/storage/', '', $img->image_path));
+                }
+                $img->delete();
+            });
+        }
+
+        // Handle new image URLs
+        if ($request->has('new_image_urls')) {
+            foreach ($request->input('new_image_urls') as $url) {
+                if (!empty($url)) {
+                    $product->images()->create([
+                        'image_path' => $url
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('products.index')
             ->with('success', 'Product updated successfully!');
@@ -111,5 +173,25 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully!');
+    }
+
+    /**
+     * Remove a specific product image.
+     */
+    public function destroyImage(ProductImage $image)
+    {
+        abort_unless(auth()->check() && auth()->user()->isAdmin(), 403, 'Unauthorized access');
+
+        try {
+            // Extract path from URL to delete from storage
+            $path = str_replace('/storage/', '', $image->image_path);
+            Storage::disk('public')->delete($path);
+            
+            $image->delete();
+
+            return back()->with('success', 'Image removed successfully!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to remove image: ' . $e->getMessage()]);
+        }
     }
 }
