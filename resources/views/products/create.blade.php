@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="{{ route('products.store') }}" method="POST" class="bg-white rounded-lg shadow-md p-6">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-lg shadow-md p-6">
             @csrf
 
             <div class="mb-4">
@@ -80,12 +80,22 @@
                 @enderror
             </div>
 
-            <div class="mb-6">
-                <label for="image_url" class="block text-gray-700 font-semibold mb-2">Image URL</label>
+            <div class="mb-4">
+                <label for="image_url" class="block text-gray-700 font-semibold mb-2">Image URL (Primary)</label>
                 <input type="url" id="image_url" name="image_url" value="{{ old('image_url') }}"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 @error('image_url') border-red-500 @enderror"
                     placeholder="https://example.com/image.jpg">
                 @error('image_url')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="images" class="block text-gray-700 font-semibold mb-2">Additional Gallery Images</label>
+                <input type="file" id="images" name="images[]" multiple accept="image/*"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 @error('images.*') border-red-500 @enderror">
+                <p class="text-sm text-gray-500 mt-1">Select multiple images to create a product gallery slider.</p>
+                @error('images.*')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
             </div>
@@ -101,4 +111,18 @@
         </form>
     </div>
 </div>
+
+<script>
+function addUrlField() {
+    const container = document.getElementById('gallery-urls-container');
+    const div = document.createElement('div');
+    div.className = 'flex gap-2';
+    div.innerHTML = `
+        <input type="url" name="new_image_urls[]" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="https://example.com/gallery.jpg">
+        <button type="button" onclick="this.parentElement.remove()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 shadow-sm">Remove</button>
+    `;
+    container.appendChild(div);
+}
+</script>
+
 @endsection

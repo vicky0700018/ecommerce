@@ -93,16 +93,22 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ($products->take(8) as $product)
                     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300">
-                        @if ($product->image_url)
-                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-56 object-cover">
-                        @else
-                            <div class="w-full h-56 bg-gray-200 flex items-center justify-center">
-                                <span class="text-gray-500 font-medium">No Image</span>
-                            </div>
-                        @endif
+                        <a href="{{ route('products.show', $product) }}" class="block w-full h-56 relative group">
+                            @if ($product->image_url)
+                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            @elseif($product->images->count() > 0)
+                                <img src="{{ url($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-500 font-medium">No Image</span>
+                                </div>
+                            @endif
+                        </a>
                         
                         <div class="p-5 flex-1 flex flex-col">
-                            <h3 class="text-lg font-bold mb-2 text-gray-900 leading-tight">{{ $product->name }}</h3>
+                            <a href="{{ route('products.show', $product) }}" class="hover:text-blue-600">
+                                <h3 class="text-lg font-bold mb-2 text-gray-900 leading-tight hover:text-blue-600">{{ $product->name }}</h3>
+                            </a>
                             @if ($product->category)
                                 <div class="mb-3">
                                     <span class="inline-block bg-purple-100 text-purple-700 text-[10px] px-2 py-1 rounded-full uppercase font-bold tracking-wider">{{ $product->category }}</span>

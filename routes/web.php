@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::resource('products', ProductController::class);
+Route::get('product-images/{image}/remove', [ProductController::class, 'destroyImage'])->name('product-images.destroy')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
