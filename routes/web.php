@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OtpController;
@@ -102,6 +103,15 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| 🔥 TEMP MIGRATE ROUTE (DELETE AFTER USE)
+|--------------------------------------------------------------------------
+*/
+Route::get('/run-migrate', function () {
+    Artisan::call('migrate', ['--force' => true]);
+    return "Migration Done ✅";
+});
+
 
 require __DIR__.'/auth.php';
-
