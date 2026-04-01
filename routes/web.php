@@ -113,5 +113,4 @@ Route::get('/run-migrate', function () {
     return "Migration Done ✅";
 });
 
-
 require __DIR__.'/auth.php';
