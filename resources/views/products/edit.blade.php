@@ -83,9 +83,11 @@
 
             <div class="mb-4">
                 <label for="image_url" class="block text-gray-700 font-semibold mb-2">Image URL (Primary)</label>
-                <input type="url" id="image_url" name="image_url" value="{{ old('image_url', $product->image_url) }}"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 @error('image_url') border-red-500 @enderror"
-                    placeholder="https://example.com/image.jpg">
+                <div class="flex gap-2">
+                    <input type="url" id="image_url" name="image_url" value="{{ old('image_url', $product->image_url) }}"
+                        class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 @error('image_url') border-red-500 @enderror text-sm font-mono"
+                        placeholder="https://example.com/image.jpg">
+                </div>
                 @error('image_url')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
@@ -97,12 +99,12 @@
                 <div id="gallery-urls-container" class="space-y-3">
                     @foreach($product->images as $image)
                         <div class="flex gap-2">
-                            <input type="url" name="existing_images[{{ $image->id }}]" value="{{ $image->image_path }}" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="https://example.com/image.jpg">
+                            <input type="url" name="existing_images[{{ $image->id }}]" value="{{ $image->image_path }}" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-mono" placeholder="https://example.com/image.jpg">
                             <button type="button" onclick="this.parentElement.remove()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 shadow-sm">Remove</button>
                         </div>
                     @endforeach
                     <div class="flex gap-2">
-                        <input type="url" name="new_image_urls[]" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="https://example.com/new-gallery.jpg">
+                        <input type="url" name="new_image_urls[]" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-mono" placeholder="https://example.com/new-gallery.jpg">
                         <button type="button" onclick="this.parentElement.remove()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 shadow-sm">Remove</button>
                     </div>
                 </div>

@@ -8,7 +8,12 @@
     }
     if ($product->images && $product->images->count() > 0) {
         foreach ($product->images as $img) {
-            $images[] = url($img->image_path);
+            // Check if it's already a full URL (external) or a relative path (local)
+            if (str_starts_with($img->image_path, 'http://') || str_starts_with($img->image_path, 'https://')) {
+                $images[] = $img->image_path;
+            } else {
+                $images[] = url($img->image_path);
+            }
         }
     }
     if (empty($images)) {
@@ -39,25 +44,25 @@
                     <!-- Thumbnails Sidebar -->
                     <div class="flex flex-col gap-2 w-16 items-center flex-shrink-0">
                         @foreach($images as $index => $img)
-                            <div class="w-16 h-16 border-2 rounded overflow-hidden cursor-pointer hover:border-blue-500"
-                                 :class="activeIndex === {{ $index }} ? 'border-blue-500' : 'border-gray-200'"
+                            <div class="w-16 h-16 border-2 rounded-lg overflow-hidden cursor-pointer hover:border-blue-500 transition-all shadow-sm hover:shadow-md"
+                                 :class="activeIndex === {{ $index }} ? 'border-blue-500 shadow-md' : 'border-gray-200'"
                                  @mouseover="setActive({{ $index }})"
                                  @click="setActive({{ $index }})">
-                                <img src="{{ $img }}" class="w-full h-full object-cover">
+                                <img src="{{ $img }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
                             </div>
                         @endforeach
                     </div>
 
                     <!-- Main Image Preview -->
-                    <div class="flex-1 border border-gray-200 rounded relative group flex items-center justify-center p-4 h-[450px]">
+                    <div class="flex-1 border border-gray-200 rounded-2xl relative group flex items-center justify-center p-4 h-[450px] bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden shadow-lg">
                         <!-- Magnifier Icon mock -->
-                        <div class="absolute top-2 right-2 text-gray-400 p-1 border border-gray-200 rounded-full cursor-pointer hover:text-gray-600">
+                        <div class="absolute top-2 right-2 text-gray-400 p-1 border border-gray-200 rounded-full cursor-pointer hover:text-gray-600 hover:border-gray-400 transition-all z-10">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9" /></svg>
                         </div>
                         
                         <!-- Alpine will swap src based on activeIndex -->
                         @foreach($images as $index => $img)
-                            <img src="{{ $img }}" class="max-h-[400px] object-contain transition-opacity duration-300"
+                            <img src="{{ $img }}" class="max-h-[400px] w-auto object-contain transition-all duration-300 rounded-xl shadow-md"
                                  x-show="activeIndex === {{ $index }}"
                                  x-transition.opacity />
                         @endforeach

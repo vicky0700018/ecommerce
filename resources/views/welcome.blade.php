@@ -97,7 +97,11 @@
                             @if ($product->image_url)
                                 <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                             @elseif($product->images->count() > 0)
-                                <img src="{{ url($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                                @php
+                                    $imagePath = $product->images->first()->image_path;
+                                    $imageSrc = (str_starts_with($imagePath, 'http://') || str_starts_with($imagePath, 'https://')) ? $imagePath : url($imagePath);
+                                @endphp
+                                <img src="{{ $imageSrc }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                             @else
                                 <div class="w-full h-full bg-gray-200 flex items-center justify-center">
                                     <span class="text-gray-500 font-medium">No Image</span>

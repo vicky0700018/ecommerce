@@ -82,9 +82,11 @@
 
             <div class="mb-4">
                 <label for="image_url" class="block text-gray-700 font-semibold mb-2">Image URL (Primary)</label>
-                <input type="url" id="image_url" name="image_url" value="{{ old('image_url') }}"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 @error('image_url') border-red-500 @enderror"
-                    placeholder="https://example.com/image.jpg">
+                <div class="flex gap-2">
+                    <input type="url" id="image_url" name="image_url" value="{{ old('image_url') }}"
+                        class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 @error('image_url') border-red-500 @enderror text-sm font-mono"
+                        placeholder="https://example.com/image.jpg">
+                </div>
                 @error('image_url')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
