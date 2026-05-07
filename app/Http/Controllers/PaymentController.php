@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -103,8 +105,11 @@ class PaymentController extends Controller
                 // Clear cart
                 Cart::where('user_id', Auth::id())->delete();
 
+                $confirmationEmailSent = $this->sendOrderConfirmationEmail($order);
+
                 return redirect()->route('payment.success', $order->id)
-                    ->with('success', 'Payment successful!');
+                    ->with('success', 'Payment successful!')
+                    ->with('confirmation_email_sent', $confirmationEmailSent);
             } else {
                 return back()->with('error', 'Payment failed!');
             }
@@ -124,6 +129,38 @@ class PaymentController extends Controller
         }
 
         return view('payment.success', compact('order'));
+    }
+
+    private function sendOrderConfirmationEmail(Order $order): bool
+    {
+        try {
+            $order->loadMissing('items.product', 'user');
+
+            $items = $order->items
+                ->map(fn ($item) => "{$item->product->name} x{$item->quantity} - Rs. " . number_format($item->price * $item->quantity, 0))
+                ->implode("\n");
+
+            Mail::raw(
+                "Thank you for your purchase!\n\n"
+                . "Order ID: #{$order->id}\n"
+                . "Status: {$order->status}\n"
+                . "Items:\n{$items}\n\n"
+                . "Total Paid: Rs. " . number_format($order->total_amount, 0),
+                function ($message) use ($order) {
+                    $message->to($order->user->email)
+                        ->subject("Order Confirmation #{$order->id}");
+                }
+            );
+
+            return true;
+        } catch (\Throwable $e) {
+            Log::warning('Order confirmation email failed.', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return false;
+        }
     }
 
     /**
