@@ -57,10 +57,16 @@
             </a>
         </div>
 
-        <p class="text-gray-700 text-sm bg-blue-50 border-2 border-blue-200 px-6 py-4 rounded-xl font-bold">
-            📧 Confirmation email sent to <span class="text-blue-700">{{ Auth::user()->email }}</span><br>
-            Check your inbox & spam folder
-        </p>
+        @if (session('confirmation_email_sent'))
+            <p class="text-gray-700 text-sm bg-blue-50 border-2 border-blue-200 px-6 py-4 rounded-xl font-bold">
+                Confirmation email sent to <span class="text-blue-700">{{ Auth::user()->email }}</span><br>
+                Check your inbox & spam folder
+            </p>
+        @else
+            <p class="text-gray-700 text-sm bg-yellow-50 border-2 border-yellow-300 px-6 py-4 rounded-xl font-bold">
+                Payment successful, but confirmation email was not sent. Please check mail SMTP settings.
+            </p>
+        @endif
     </div>
 </div>
 @endsection
