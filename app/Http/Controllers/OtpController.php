@@ -9,52 +9,45 @@ use Illuminate\Support\Facades\Mail;
 
 class OtpController extends Controller
 {
-    // OTP form
     public function showOtpForm()
     {
         return view('auth.otp');
     }
 
-    // OTP generate & send
     public function sendOtp()
     {
+        $user = Auth::user();
         $otp = rand(1000, 9999);
 
         Otp::updateOrCreate(
-            ['user_id' => Auth::id()],
+            ['user_id' => $user->id],
             ['otp' => $otp]
         );
 
-    
-        if (config('app.env') === 'production') {
-            Mail::raw("Your OTP code is: $otp", function ($message) {
-                $message->to(Auth::user()->email)
-                        ->subject('Your Login OTP');
-            });
-        }
+        Mail::raw("Your OTP code is: {$otp}", function ($message) use ($user) {
+            $message->to($user->email)
+                ->subject('Your Login OTP');
+        });
 
-        // Development mode में OTP दिखाएं
-        $message = config('app.env') === 'local' 
-            ? "✅ OTP: $otp (Development Mode)"
-            : 'OTP sent to your email';
-
-        return redirect()->route('otp.form')->with('success', $message);
+        return redirect()
+            ->route('otp.form')
+            ->with('success', 'OTP sent to your email address.');
     }
 
-    // OTP verify
     public function verifyOtp(Request $request)
     {
         $request->validate([
-            'otp' => 'required'
+            'otp' => 'required',
         ]);
 
         $record = Otp::where('user_id', Auth::id())
-                     ->where('otp', $request->otp)
-                     ->first();
+            ->where('otp', $request->otp)
+            ->first();
 
         if ($record) {
-            $record->delete(); // one-time OTP
+            $record->delete();
             session(['otp_verified' => true]);
+
             return redirect()->route('dashboard');
         }
 
