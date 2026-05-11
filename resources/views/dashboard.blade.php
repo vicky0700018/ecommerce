@@ -125,6 +125,7 @@
                         <div class="p-4">
                             <h3 class="text-purple-900 font-bold mb-2 line-clamp-2">{{ $product->name }}</h3>
                             <p class="text-purple-600 font-black text-xl mb-4">₹{{ number_format($product->price, 0) }}</p>
+                            @unless(auth()->user()->isAdmin())
                             <form action="{{ route('cart.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -133,6 +134,7 @@
                                     🛒 Add to Cart
                                 </button>
                             </form>
+                            @endunless
                         </div>
                     </div>
                 @endforeach
