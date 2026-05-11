@@ -69,6 +69,7 @@
                     </div>
                 </div>
 
+                @unless(auth()->check() && auth()->user()->isAdmin())
                 <!-- Action Buttons: Add to Cart & Buy Now -->
                 <div class="flex gap-4">
                     <!-- Add to Cart -->
@@ -95,6 +96,7 @@
                         BUY NOW
                     </a>
                 </div>
+                @endunless
 
             </div>
 
