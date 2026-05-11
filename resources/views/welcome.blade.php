@@ -128,6 +128,7 @@
                                 </span>
                             </div>
                             
+                            @unless(auth()->check() && auth()->user()->isAdmin())
                             <div class="mt-auto">
                                 @auth
                                     <form action="{{ route('cart.store') }}" method="POST" class="w-full">
@@ -151,6 +152,7 @@
                                     </a>
                                 @endauth
                             </div>
+                            @endunless
                             
                             @if(auth()->check() && auth()->user()->isAdmin())
                             <div class="flex gap-2 mt-3">
