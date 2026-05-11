@@ -13,9 +13,11 @@
                     <a href="{{ route('products.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('products.index') ? 'border-blue-800 text-black' : 'border-transparent text-black hover:text-blue-800 hover:border-blue-800' }} text-sm font-bold transition duration-150 ease-in-out">
                         🏪 Products
                     </a>
-                        <a href="{{ route('cart.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('cart.index') ? 'border-blue-800 text-black' : 'border-transparent text-black hover:text-blue-800 hover:border-blue-800' }} text-sm font-bold transition duration-150 ease-in-out">
-                            🛒 Cart
-                        </a>
+                        @unless(auth()->check() && auth()->user()->isAdmin())
+                            <a href="{{ route('cart.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('cart.index') ? 'border-blue-800 text-black' : 'border-transparent text-black hover:text-blue-800 hover:border-blue-800' }} text-sm font-bold transition duration-150 ease-in-out">
+                                🛒 Cart
+                            </a>
+                        @endunless
                     </div>
                 </div>
 
