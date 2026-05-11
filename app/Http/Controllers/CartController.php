@@ -14,6 +14,11 @@ class CartController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('products.index')
+                ->with('error', 'Admin users manage products instead of using the cart.');
+        }
+
         $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
         $total = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
 
@@ -25,6 +30,11 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('products.index')
+                ->with('error', 'Admin users cannot add products to cart.');
+        }
+
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
