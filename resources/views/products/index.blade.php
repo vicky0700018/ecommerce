@@ -76,6 +76,7 @@
                             <span class="text-sm bg-blue-600 text-black px-3 py-1 rounded-full font-bold">📦 {{ $product->stock }}</span>
                         </div>
                         
+                        @unless(auth()->check() && auth()->user()->isAdmin())
                         <div class="flex gap-2 mb-3">
                             @auth
                                 <form action="{{ route('cart.store') }}" method="POST" class="flex-1">
@@ -93,6 +94,7 @@
                                 </a>
                             @endauth
                         </div>
+                        @endunless
 
                         @if(auth()->check() && auth()->user()->isAdmin())
                         <div class="flex gap-2">
