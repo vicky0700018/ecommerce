@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceMail;
 use App\Models\Cart;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -106,10 +108,15 @@ class PaymentController extends Controller
                 Cart::where('user_id', Auth::id())->delete();
 
                 $confirmationEmailSent = $this->sendOrderConfirmationEmail($order);
+                
+                // Generate and send invoice
+                $invoice = $this->generateInvoice($order);
+                $invoiceEmailSent = $this->sendInvoiceEmail($order, $invoice);
 
                 return redirect()->route('payment.success', $order->id)
                     ->with('success', 'Payment successful!')
-                    ->with('confirmation_email_sent', $confirmationEmailSent);
+                    ->with('confirmation_email_sent', $confirmationEmailSent)
+                    ->with('invoice_email_sent', $invoiceEmailSent);
             } else {
                 return back()->with('error', 'Payment failed!');
             }
@@ -161,6 +168,79 @@ class PaymentController extends Controller
 
             return false;
         }
+    }
+
+    /**
+     * Generate invoice for order
+     */
+    private function generateInvoice(Order $order): Invoice
+    {
+        $invoiceNumber = 'INV-' . str_pad($order->id, 6, '0', STR_PAD_LEFT) . '-' . date('Ym');
+
+        $invoice = Invoice::create([
+            'order_id' => $order->id,
+            'invoice_number' => $invoiceNumber,
+            'total_amount' => $order->total_amount,
+            'status' => 'issued',
+            'issued_at' => now(),
+        ]);
+
+        return $invoice;
+    }
+
+    /**
+     * Send invoice email
+     */
+    private function sendInvoiceEmail(Order $order, Invoice $invoice): bool
+    {
+        try {
+            $order->loadMissing('items.product', 'user');
+
+            Mail::to($order->user->email)->send(new InvoiceMail($order, $invoice));
+
+            return true;
+        } catch (\Throwable $e) {
+            Log::warning('Invoice email failed.', [
+                'order_id' => $order->id,
+                'invoice_id' => $invoice->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return false;
+        }
+    }
+
+    /**
+     * View invoice
+     */
+    public function viewInvoice(Invoice $invoice)
+    {
+        // Check authorization
+        if ($invoice->order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $invoice->loadMissing('order.items.product', 'order.user');
+        $order = $invoice->order;
+
+        return view('invoice.view', compact('invoice', 'order'));
+    }
+
+    /**
+     * Download invoice as PDF
+     */
+    public function downloadInvoice(Invoice $invoice)
+    {
+        // Check authorization
+        if ($invoice->order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $invoice->loadMissing('order.items.product', 'order.user');
+        $order = $invoice->order;
+
+        // For now, return HTML view (can integrate with DomPDF for actual PDF download)
+        return view('invoice.view', compact('invoice', 'order'));
     }
 
     /**
