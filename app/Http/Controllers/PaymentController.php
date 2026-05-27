@@ -135,6 +135,8 @@ class PaymentController extends Controller
             abort(403);
         }
 
+        $order->loadMissing('items.product', 'invoice');
+
         return view('payment.success', compact('order'));
     }
 
@@ -147,21 +149,12 @@ class PaymentController extends Controller
                 ->map(fn ($item) => "{$item->product->name} x{$item->quantity} - Rs. " . number_format($item->price * $item->quantity, 0))
                 ->implode("\n");
 
-            Mail::raw(
-                "Thank you for your purchase!\n\n"
-                . "Order ID: #{$order->id}\n"
-                . "Status: {$order->status}\n"
-                . "Items:\n{$items}\n\n"
-                . "Total Paid: Rs. " . number_format($order->total_amount, 0),
-                function ($message) use ($order) {
-                    $message->to($order->user->email)
-                        ->subject("Order Confirmation #{$order->id}");
-                }
-            );
+            // Queue the email instead of sending directly
+            Mail::to($order->user->email)->queue(new \App\Mail\OrderConfirmationMail($order, $items));
 
             return true;
         } catch (\Throwable $e) {
-            Log::warning('Order confirmation email failed.', [
+            Log::warning('Order confirmation email queued failed.', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage(),
             ]);
@@ -196,11 +189,12 @@ class PaymentController extends Controller
         try {
             $order->loadMissing('items.product', 'user');
 
-            Mail::to($order->user->email)->send(new InvoiceMail($order, $invoice));
+            // Queue the email instead of sending directly
+            Mail::to($order->user->email)->queue(new InvoiceMail($order, $invoice));
 
             return true;
         } catch (\Throwable $e) {
-            Log::warning('Invoice email failed.', [
+            Log::warning('Invoice email queued failed.', [
                 'order_id' => $order->id,
                 'invoice_id' => $invoice->id,
                 'error' => $e->getMessage(),
