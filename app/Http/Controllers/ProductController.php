@@ -25,7 +25,7 @@ class ProductController extends Controller
         }
 
         if ($request->has('category') && $request->category != '') {
-            $query->where('category', $request->category);
+            $query->whereRaw('LOWER(category) = ?', [strtolower($request->category)]);
         }
 
         $products = $query->get();
