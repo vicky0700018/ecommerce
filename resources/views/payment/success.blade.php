@@ -29,6 +29,12 @@
                     <span class="font-bold text-gray-800">Status:</span>
                     <span class="bg-emerald-500 text-white px-4 py-1 rounded-full font-black">✓ {{ ucfirst($order->status) }}</span>
                 </div>
+                @if($order->invoice)
+                <div class="flex justify-between bg-green-50 p-3 rounded-lg border-2 border-green-300">
+                    <span class="font-bold text-gray-800">📄 Invoice:</span>
+                    <span class="font-mono bg-green-100 px-3 py-1 rounded font-black text-green-700">{{ $order->invoice->invoice_number }}</span>
+                </div>
+                @endif
             </div>
 
             <div class="mt-6">
@@ -49,6 +55,16 @@
         </div>
 
         <div class="space-y-3 mb-8">
+            @if($order->invoice)
+            <div class="grid grid-cols-2 gap-3">
+                <a href="{{ route('invoice.view', $order->invoice) }}" class="block bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-4 rounded-xl hover:from-green-600 hover:to-emerald-600 font-black text-lg shadow-lg transition transform hover:scale-105 text-center">
+                    👁️ View Invoice
+                </a>
+                <a href="{{ route('invoice.download', $order->invoice) }}" class="block bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-4 rounded-xl hover:from-blue-600 hover:to-cyan-600 font-black text-lg shadow-lg transition transform hover:scale-105 text-center">
+                    📥 Download
+                </a>
+            </div>
+            @endif
             <a href="{{ route('products.index') }}" class="block w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white px-6 py-4 rounded-xl hover:from-cyan-600 hover:via-blue-600 hover:to-purple-600 font-black text-lg shadow-lg transition transform hover:scale-105">
                 🛍️ Continue Shopping
             </a>
