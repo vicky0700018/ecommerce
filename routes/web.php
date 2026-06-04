@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('payment.process');
     Route::get('/payment-success/{order}', [PaymentController::class, 'success'])->name('payment.success');
     Route::get('/stripe-public-key', [PaymentController::class, 'getStripeKey'])->name('payment.stripe-key');
+    Route::get('/invoice/{invoice}', [PaymentController::class, 'viewInvoice'])->name('invoice.view');
+    Route::get('/invoice/{invoice}/download', [PaymentController::class, 'downloadInvoice'])->name('invoice.download');
 });
 
 
