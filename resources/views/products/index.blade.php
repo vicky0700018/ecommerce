@@ -53,7 +53,7 @@
                                 $imagePath = $product->images->first()->image_path;
                                 $imageSrc = (str_starts_with($imagePath, 'http://') || str_starts_with($imagePath, 'https://')) ? $imagePath : url($imagePath);
                             @endphp
-                            <img src="{{ $imageSrc }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            <img src="{{ $imageSrc }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                         @else
                             <div class="w-full h-48 bg-blue-400 flex items-center justify-center">
                                 <span class="text-black font-bold text-lg">📦 No Image</span>
