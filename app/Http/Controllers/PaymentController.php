@@ -63,8 +63,8 @@ class PaymentController extends Controller
                 // Real Stripe payment
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
                 
-                // Convert USD to INR for payment
-                $amountInRupees = Currency::convert($total, 'INR');
+                // Amount in rupees
+                $amountInRupees = $total;
                 $paymentIntent = \Stripe\PaymentIntent::create([
                     'amount' => (int)($amountInRupees * 100),
                     'currency' => 'inr',
@@ -149,12 +149,12 @@ class PaymentController extends Controller
                 ->map(fn ($item) => "{$item->product->name} x{$item->quantity} - Rs. " . number_format($item->price * $item->quantity, 0))
                 ->implode("\n");
 
-            // Queue the email instead of sending directly
-            Mail::to($order->user->email)->queue(new \App\Mail\OrderConfirmationMail($order, $items));
+            // Send email immediately instead of queuing
+            Mail::to($order->user->email)->send(new \App\Mail\OrderConfirmationMail($order, $items));
 
             return true;
         } catch (\Throwable $e) {
-            Log::warning('Order confirmation email queued failed.', [
+            Log::warning('Order confirmation email send failed.', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage(),
             ]);
@@ -189,12 +189,12 @@ class PaymentController extends Controller
         try {
             $order->loadMissing('items.product', 'user');
 
-            // Queue the email instead of sending directly
-            Mail::to($order->user->email)->queue(new InvoiceMail($order, $invoice));
+            // Send email immediately instead of queuing
+            Mail::to($order->user->email)->send(new InvoiceMail($order, $invoice));
 
             return true;
         } catch (\Throwable $e) {
-            Log::warning('Invoice email queued failed.', [
+            Log::warning('Invoice email send failed.', [
                 'order_id' => $order->id,
                 'invoice_id' => $invoice->id,
                 'error' => $e->getMessage(),

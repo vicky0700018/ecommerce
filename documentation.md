@@ -1,6 +1,6 @@
-# ShopHub Project Complete Codebase
+# ShopSphere Project Complete Codebase
 
-This document contains the source code for all significant files in the ShopHub project.
+This document contains the source code for all significant files in the ShopSphere project.
 
 ---
 
@@ -442,7 +442,7 @@ require __DIR__.'/auth.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopHub - E-Commerce</title>
+    <title>ShopSphere - E-Commerce</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -451,7 +451,7 @@ require __DIR__.'/auth.php';
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">ShopHub</h1>
+                    <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">ShopSphere</h1>
                 </div>
                 <!-- Auth Links -->
                 <div class="flex items-center gap-4">
