@@ -2,7 +2,24 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-black text-purple-900 mb-8">👤 Profile Settings</h1>
+    <!-- Profile Header with Avatar -->
+    <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl p-8 mb-8 shadow-2xl">
+        <div class="flex items-center gap-6">
+            @if(auth()->user()->profile_image)
+                <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="{{ auth()->user()->name }}" class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg">
+            @else
+                <div class="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center text-2xl border-4 border-white">
+                    👤
+                </div>
+            @endif
+            <div>
+                <h1 class="text-4xl font-black">{{ auth()->user()->name }}'s Profile</h1>
+                <p class="text-white/80 mt-2">{{ auth()->user()->email }}</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-4xl font-black text-purple-900 mb-8">⚙️ Profile Settings</h1>
 
     <!-- Quick Links Section -->
     <div class="bg-white rounded-2xl shadow-2xl p-8 mb-8 border-2 border-purple-300">
