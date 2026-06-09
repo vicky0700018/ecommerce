@@ -127,9 +127,9 @@
                     </span>
                     <span class="text-sm text-gray-500 font-medium hover:text-blue-600 cursor-pointer">36,115 Ratings & 2,345 Reviews</span>
                     
-                    <!-- ShopHub Assured Badge -->
+                    <!-- ShopSphere Assured Badge -->
                     <span class="ml-2 inline-flex items-center gap-1 bg-gradient-to-r from-blue-600 to-indigo-600 px-2 py-0.5 rounded-sm text-white text-[11px] font-black italic shadow-sm tracking-wide">
-                        ShopHub
+                        ShopSphere
                         <span class="text-blue-100 font-semibold not-italic tracking-normal text-[10px]">Assured</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 ml-0.5"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 11.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" /></svg>
                     </span>
@@ -180,7 +180,7 @@
                         
                         <div class="text-gray-500">Seller</div>
                         <div class="col-span-2 md:col-span-3 font-medium text-blue-600 cursor-pointer flex gap-1 items-center">
-                            ShopHub Retail <span class="bg-blue-600 text-white rounded-full text-[10px] px-1.5 ml-1">4.8</span>
+                            ShopSphere Retail <span class="bg-blue-600 text-white rounded-full text-[10px] px-1.5 ml-1">4.8</span>
                         </div>
                     </div>
                 </div>

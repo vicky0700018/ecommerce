@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="text-3xl font-black text-purple-900 drop-shadow-lg">🛍️ ShopHub</a>
+                    <a href="{{ route('dashboard') }}" class="text-3xl font-black text-purple-900 drop-shadow-lg">🛍️ ShopSphere</a>
                 </div>
 
                 <!-- Navigation Links -->
