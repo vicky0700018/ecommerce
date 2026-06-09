@@ -7,7 +7,7 @@
         <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 rounded-t-lg">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-4xl font-bold">🛍️ ShopHub</h1>
+                    <h1 class="text-4xl font-bold">🛍️ ShopSphere</h1>
                     <p class="text-blue-100 mt-2">Invoice</p>
                 </div>
                 <div class="text-right">
@@ -107,7 +107,7 @@
 
         <!-- Invoice Footer -->
         <div class="bg-gray-50 p-6 rounded-b-lg border border-gray-200 border-t-0 text-center text-sm text-gray-600">
-            <p>ShopHub © {{ date('Y') }} | All Rights Reserved</p>
+            <p>ShopSphere © {{ date('Y') }} | All Rights Reserved</p>
             <p class="text-xs text-gray-500 mt-1">This is an automated invoice</p>
         </div>
 

@@ -82,7 +82,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🛍️ ShopHub</h1>
+            <h1>🛍️ ShopSphere</h1>
             <h2>Invoice</h2>
         </div>
 
@@ -166,7 +166,7 @@
 
         <div class="footer">
             <p style="margin: 0;">
-                ShopHub © {{ date('Y') }} | All Rights Reserved<br>
+                ShopSphere © {{ date('Y') }} | All Rights Reserved<br>
                 This is an automated invoice. Please do not reply to this email.
             </p>
         </div>

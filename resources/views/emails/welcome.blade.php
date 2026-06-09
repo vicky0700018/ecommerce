@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to ShopHub</title>
+    <title>Welcome to ShopSphere</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -107,14 +107,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🛍️ ShopHub</h1>
+            <h1>🛍️ ShopSphere</h1>
             <p style="margin: 10px 0 0 0; font-size: 16px;">Welcome Aboard!</p>
         </div>
 
         <div class="content">
             <div class="welcome-box">
                 <h2>Hello {{ $user->name }}! 👋</h2>
-                <p>We're excited to have you join our ShopHub family!</p>
+                <p>We're excited to have you join our ShopSphere family!</p>
             </div>
 
             <p>Thank you for creating an account with us. Your registration was successful and your account is now active.</p>
@@ -171,7 +171,7 @@
             </div>
 
             <p style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
-                <strong>⚠️ Important:</strong> Never share your password with anyone. ShopHub staff will never ask for your password.
+                <strong>⚠️ Important:</strong> Never share your password with anyone. ShopSphere staff will never ask for your password.
             </p>
 
             <center>
@@ -187,7 +187,7 @@
         </div>
 
         <div class="footer">
-            <p style="margin: 0;">ShopHub © {{ date('Y') }} | All Rights Reserved</p>
+            <p style="margin: 0;">ShopSphere © {{ date('Y') }} | All Rights Reserved</p>
             <p style="margin: 10px 0 0 0; color: #999;">
                 This is an automated welcome email. Please do not reply to this email.
             </p>
