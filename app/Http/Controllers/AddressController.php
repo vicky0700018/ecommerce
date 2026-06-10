@@ -27,8 +27,9 @@ class AddressController extends Controller
         ]);
 
         $validated['user_id'] = Auth::id();
+        $validated['is_default'] = $request->has('is_default');
 
-        if ($request->has('is_default') && $request->is_default) {
+        if ($validated['is_default']) {
             Auth::user()->addresses()->update(['is_default' => false]);
         }
 
