@@ -140,9 +140,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <div class="flex items-center">
-                    <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">ShopSphere</h1>
-                </div>
+                <a href="#" class="flex items-center hover:scale-105 transition-transform duration-300">
+                    <x-application-logo class="h-10 w-auto" :showText="true" />
+                </a>
 
                 <!-- Search Bar -->
                 <div class="flex-1 max-w-lg mx-8 hidden md:block">
@@ -250,59 +250,114 @@
         </div>
     </section>
 
-    <!-- Flash Sale / Limited Offers Section -->
-    <section class="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 py-12 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Offer 1 -->
-                <div class="bg-black/30 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:scale-105 transition-transform duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <p class="text-sm font-semibold opacity-90">⚡ FLASH SALE</p>
-                            <h3 class="text-2xl font-bold mt-2">Mega Clearance</h3>
+    <!-- Flash Sale / Limited Offers Section (Auto Slider) -->
+    <section class="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 py-12 text-white overflow-hidden relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            
+            <div class="overflow-hidden rounded-xl">
+                <div class="flex transition-transform duration-700 ease-in-out" id="offer-slider">
+                    <!-- Offer 1 -->
+                    <div class="w-full flex-shrink-0 px-2">
+                        <div class="bg-black/30 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:scale-105 transition-transform duration-300 shadow-2xl">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <p class="text-sm font-semibold opacity-90 tracking-wider">⚡ FLASH SALE</p>
+                                    <h3 class="text-3xl font-bold mt-2">Mega Clearance</h3>
+                                </div>
+                                <span class="bg-white text-red-600 px-4 py-2 rounded-full font-black text-lg shadow-lg">-50%</span>
+                            </div>
+                            <p class="mb-6 opacity-90 text-lg">On selected items across the store</p>
+                            <div class="bg-black/50 rounded-lg p-4 text-center">
+                                <p class="text-sm opacity-75 mb-1 tracking-widest uppercase">Ends in</p>
+                                <p class="text-4xl font-mono font-bold tracking-wider">03:45:22</p>
+                            </div>
                         </div>
-                        <span class="bg-white text-red-600 px-3 py-1 rounded-full font-bold text-sm">-50%</span>
                     </div>
-                    <p class="mb-4 opacity-90">On selected items</p>
-                    <div class="bg-black/50 rounded-lg p-3 text-center">
-                        <p class="text-xs opacity-75">Ends in</p>
-                        <p class="text-2xl font-bold">03:45:22</p>
-                    </div>
-                </div>
 
-                <!-- Offer 2 -->
-                <div class="bg-black/30 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:scale-105 transition-transform duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <p class="text-sm font-semibold opacity-90">🎁 BUNDLE DEAL</p>
-                            <h3 class="text-2xl font-bold mt-2">Buy More Save More</h3>
+                    <!-- Offer 2 -->
+                    <div class="w-full flex-shrink-0 px-2">
+                        <div class="bg-black/30 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:scale-105 transition-transform duration-300 shadow-2xl">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <p class="text-sm font-semibold opacity-90 tracking-wider">🎁 BUNDLE DEAL</p>
+                                    <h3 class="text-3xl font-bold mt-2">Buy More Save More</h3>
+                                </div>
+                                <span class="bg-white text-orange-600 px-4 py-2 rounded-full font-black text-lg shadow-lg">-35%</span>
+                            </div>
+                            <p class="mb-6 opacity-90 text-lg">On all combo packs and bulk purchases</p>
+                            <div class="bg-black/50 rounded-lg p-4 text-center">
+                                <p class="text-sm opacity-75 mb-1 tracking-widest uppercase">Ends in</p>
+                                <p class="text-4xl font-mono font-bold tracking-wider">05:22:15</p>
+                            </div>
                         </div>
-                        <span class="bg-white text-orange-600 px-3 py-1 rounded-full font-bold text-sm">-35%</span>
                     </div>
-                    <p class="mb-4 opacity-90">On combo packs</p>
-                    <div class="bg-black/50 rounded-lg p-3 text-center">
-                        <p class="text-xs opacity-75">Ends in</p>
-                        <p class="text-2xl font-bold">05:22:15</p>
-                    </div>
-                </div>
 
-                <!-- Offer 3 -->
-                <div class="bg-black/30 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:scale-105 transition-transform duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <p class="text-sm font-semibold opacity-90">💳 MEMBER EXCLUSIVE</p>
-                            <h3 class="text-2xl font-bold mt-2">Extra Discount</h3>
+                    <!-- Offer 3 -->
+                    <div class="w-full flex-shrink-0 px-2">
+                        <div class="bg-black/30 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:scale-105 transition-transform duration-300 shadow-2xl">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <p class="text-sm font-semibold opacity-90 tracking-wider">💳 MEMBER EXCLUSIVE</p>
+                                    <h3 class="text-3xl font-bold mt-2">Extra Discount</h3>
+                                </div>
+                                <span class="bg-white text-yellow-600 px-4 py-2 rounded-full font-black text-lg shadow-lg">-25%</span>
+                            </div>
+                            <p class="mb-6 opacity-90 text-lg">For registered members only</p>
+                            <div class="bg-black/50 rounded-lg p-4 text-center">
+                                <p class="text-sm opacity-75 mb-1 tracking-widest uppercase">Ends in</p>
+                                <p class="text-4xl font-mono font-bold tracking-wider">08:10:45</p>
+                            </div>
                         </div>
-                        <span class="bg-white text-yellow-600 px-3 py-1 rounded-full font-bold text-sm">-25%</span>
-                    </div>
-                    <p class="mb-4 opacity-90">For registered members</p>
-                    <div class="bg-black/50 rounded-lg p-3 text-center">
-                        <p class="text-xs opacity-75">Ends in</p>
-                        <p class="text-2xl font-bold">08:10:45</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Indicators -->
+            <div class="flex justify-center mt-8 gap-3" id="offer-indicators">
+                <button class="w-4 h-4 rounded-full bg-white shadow-lg transition-all duration-300 hover:scale-125" data-slide="0"></button>
+                <button class="w-4 h-4 rounded-full bg-white/40 shadow-lg transition-all duration-300 hover:scale-125" data-slide="1"></button>
+                <button class="w-4 h-4 rounded-full bg-white/40 shadow-lg transition-all duration-300 hover:scale-125" data-slide="2"></button>
+            </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const slider = document.getElementById('offer-slider');
+                const indicators = document.querySelectorAll('#offer-indicators button');
+                let currentSlide = 0;
+                const totalSlides = 3;
+
+                function goToSlide(index) {
+                    currentSlide = index;
+                    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    indicators.forEach((ind, i) => {
+                        if (i === currentSlide) {
+                            ind.classList.remove('bg-white/40');
+                            ind.classList.add('bg-white');
+                            ind.classList.add('scale-110');
+                        } else {
+                            ind.classList.remove('bg-white');
+                            ind.classList.remove('scale-110');
+                            ind.classList.add('bg-white/40');
+                        }
+                    });
+                }
+
+                let slideInterval = setInterval(() => {
+                    goToSlide((currentSlide + 1) % totalSlides);
+                }, 3500); // 3.5 seconds interval
+
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        clearInterval(slideInterval);
+                        goToSlide(index);
+                        slideInterval = setInterval(() => {
+                            goToSlide((currentSlide + 1) % totalSlides);
+                        }, 3500);
+                    });
+                });
+            });
+        </script>
     </section>
 
     <!-- Features Section -->
@@ -352,103 +407,96 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach ($products->take(8) as $product)
-                    <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col">
-                        <!-- Product Image -->
-                        <a href="{{ route('products.show', $product) }}" class="block w-full h-56 relative group/image overflow-hidden bg-gray-200">
+                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col">
+                        <a href="{{ route('products.show', $product) }}" class="block w-full h-56 relative group">
                             @if ($product->image_url)
-                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            @elseif($product->images->count() > 0)
+                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            @elseif($product->images && $product->images->count() > 0)
                                 @php
                                     $imagePath = $product->images->first()->image_path;
                                     $imageSrc = (str_starts_with($imagePath, 'http://') || str_starts_with($imagePath, 'https://')) ? $imagePath : url($imagePath);
                                 @endphp
-                                <img src="{{ $imageSrc }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ $imageSrc }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                             @else
-                                <div class="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-                                    <span class="text-gray-600 font-medium text-lg">📦 No Image</span>
+                                <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                                    <span class="text-gray-400 font-medium">No Image</span>
                                 </div>
                             @endif
                             
-                            <!-- Overlay -->
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <span class="text-white font-bold text-lg">👁️ View</span>
-                            </div>
-
-                            <!-- Stock Badge -->
                             <div class="absolute top-3 right-3">
-                                @if($product->stock > 0)
-                                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">{{ $product->stock }} In Stock</span>
-                                @else
-                                    <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">Out of Stock</span>
-                                @endif
+                                <span class="bg-[#10b981] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    {{ $product->stock ?? 0 }} In Stock
+                                </span>
                             </div>
                         </a>
                         
-                        <!-- Product Info -->
-                        <div class="p-6 flex-1 flex flex-col">
+                        <div class="p-5 flex-1 flex flex-col">
                             @if ($product->category)
-                                <span class="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] px-3 py-1 rounded-full uppercase font-bold tracking-wider mb-3 w-fit">{{ $product->category }}</span>
+                                <div class="mb-3">
+                                    <span class="inline-block bg-[#a855f7] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                        {{ $product->category }}
+                                    </span>
+                                </div>
                             @endif
-
-                            <a href="{{ route('products.show', $product) }}" class="hover:text-indigo-600 transition-colors">
-                                <h3 class="text-lg font-bold mb-2 text-gray-900 leading-tight line-clamp-2">{{ $product->name }}</h3>
+                            
+                            <a href="{{ route('products.show', $product) }}" class="hover:text-purple-600 transition-colors">
+                                <h3 class="text-lg font-bold text-gray-900 leading-tight mb-2">{{ $product->name }}</h3>
                             </a>
-
+                            
                             @if ($product->description)
-                                <p class="text-gray-600 text-sm mb-4 flex-1 line-clamp-2">{{ $product->description }}</p>
+                                <p class="text-gray-500 text-sm mb-4 line-clamp-2 flex-1">{{ Str::limit($product->description, 60) }}</p>
+                            @else
+                                <div class="flex-1 mb-4"></div>
                             @endif
-
-                            <!-- Price and Rating -->
-                            <div class="flex justify-between items-center mb-5 pt-4 border-t border-gray-200">
+                            
+                            <div class="flex justify-between items-end mb-5 pt-4 border-t border-gray-100">
                                 <div>
-                                    <p class="text-xs text-gray-500">Price</p>
-                                    <span class="text-3xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">₹{{ number_format($product->price, 0) }}</span>
+                                    <p class="text-xs text-gray-400 mb-1">Price</p>
+                                    <span class="text-2xl font-black text-[#8b5cf6]">₹{{ number_format($product->price, 0) }}</span>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-yellow-500 text-lg">⭐⭐⭐⭐⭐</p>
-                                    <p class="text-xs text-gray-500">(125 reviews)</p>
+                                    <div class="flex text-yellow-400 text-sm">
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mt-1">(125 reviews)</p>
                                 </div>
                             </div>
                             
-                            <!-- Action Buttons -->
                             @unless(auth()->check() && auth()->user()->isAdmin())
-                            <div class="mt-auto space-y-2">
+                            <div class="mt-auto">
                                 @auth
                                     <form action="{{ route('cart.store') }}" method="POST" class="w-full">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 flex justify-center items-center gap-2 shadow-lg hover:shadow-xl" 
-                                            {{ $product->stock == 0 ? 'disabled' : '' }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                            </svg>
-                                            {{ $product->stock == 0 ? 'Out of Stock' : '🛒 Add to Cart' }}
+                                        <button type="submit" class="w-full bg-[#10b981] hover:bg-[#059669] text-white py-2.5 rounded-lg text-sm font-semibold transition flex items-center justify-center gap-2" 
+                                            {{ (isset($product->stock) && $product->stock == 0) ? 'disabled' : '' }}>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            {{ (isset($product->stock) && $product->stock == 0) ? 'Out of Stock' : 'Add to Cart' }}
                                         </button>
                                     </form>
-                                    <a href="{{ route('products.show', $product) }}" class="w-full bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 text-center">
-                                        ❤️ View Details
-                                    </a>
                                 @else
-                                    <a href="{{ route('login') }}" onclick="alert('Please login first to add items to your cart!');" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 flex justify-center items-center gap-2 shadow-lg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                        </svg>
-                                        🛒 Add to Cart
+                                    <a href="{{ route('login') }}" class="w-full bg-[#10b981] hover:bg-[#059669] text-white py-2.5 rounded-lg text-sm font-semibold transition flex items-center justify-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                        Add to Cart
                                     </a>
                                 @endauth
                             </div>
                             @endunless
                             
                             @if(auth()->check() && auth()->user()->isAdmin())
-                            <div class="flex gap-2 mt-3">
-                                <a href="{{ route('products.edit', $product) }}" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg text-center hover:shadow-lg text-sm font-bold shadow transition-all duration-300 flex justify-center items-center gap-1">
+                            <div class="flex gap-2 mt-auto pt-2 border-t border-gray-100">
+                                <a href="{{ route('products.edit', $product) }}" class="flex-1 bg-yellow-100 text-yellow-700 px-3 py-2 rounded-lg text-center hover:bg-yellow-200 text-sm font-bold transition">
                                     ✏️ Edit
                                 </a>
-                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="flex-1 flex">
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="flex-1">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg hover:shadow-lg text-sm font-bold shadow transition-all duration-300 flex justify-center items-center gap-1"
+                                    <button type="submit" class="w-full bg-red-100 text-red-700 px-3 py-2 rounded-lg hover:bg-red-200 text-sm font-bold transition"
                                         onclick="return confirm('Are you sure?')">
                                         🗑️ Delete
                                     </button>
@@ -490,7 +538,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-5 gap-12 mb-12">
                 <div>
-                    <h5 class="text-white font-bold mb-4 text-lg">🛒 ShopSphere</h5>
+                    <x-application-logo class="h-8 w-auto mb-4" :showText="true" textColor="text-white" textSize="text-xl" />
                     <p class="text-sm leading-relaxed">Your trusted e-commerce destination for quality products at unbeatable prices.</p>
                 </div>
                 <div>
@@ -532,7 +580,7 @@
             </div>
 
             <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-center md:text-left text-sm">&copy; 2026 ShopSphere. All rights reserved. | Built with ❤️</p>
+                <p class="text-center md:text-left text-sm">&copy; 2026 ShopSphere. All rights reserved. | Made by Vicky ❤️</p>
                 <div class="flex gap-6 mt-6 md:mt-0 text-sm">
                     <span class="flex items-center gap-2">🔒 Secure Checkout</span>
                     <span class="flex items-center gap-2">📦 Free Shipping on Orders</span>
