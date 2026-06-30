@@ -139,9 +139,13 @@
                 
                 <div class="flex items-end gap-3 mb-4">
                     <span class="text-3xl font-bold text-gray-900">₹{{ number_format($product->price, 0) }}</span>
-                    <!-- Fake discount -->
-                    <span class="text-base text-gray-500 line-through mb-1">₹{{ number_format($product->price * 1.5, 0) }}</span>
-                    <span class="text-base text-green-600 font-bold mb-1">33% off</span>
+                    @if($product->original_price && $product->original_price > $product->price)
+                        @php
+                            $discountPercentage = round((($product->original_price - $product->price) / $product->original_price) * 100);
+                        @endphp
+                        <span class="text-base text-gray-500 line-through mb-1">₹{{ number_format($product->original_price, 0) }}</span>
+                        <span class="text-base text-green-600 font-bold mb-1">{{ $discountPercentage }}% off</span>
+                    @endif
                 </div>
 
                 <!-- Offers styling -->
@@ -150,7 +154,7 @@
                     <ul class="text-sm space-y-2">
                         <li class="flex items-start gap-2">
                             <span class="text-green-600 bg-green-100 rounded-full p-0.5 px-1 font-bold text-[10px] mt-0.5">🏷️</span>
-                            <span><strong>Bank Offer</strong> 5% Cashback on Flipkart Axis Bank Card <a href="#" class="text-blue-600 font-medium">T&C</a></span>
+                            <span><strong>Bank Offer</strong> 5% Cashback on Axis Bank Card <a href="#" class="text-blue-600 font-medium">T&C</a></span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-600 bg-green-100 rounded-full p-0.5 px-1 font-bold text-[10px] mt-0.5">🏷️</span>
@@ -188,7 +192,9 @@
                 <!-- Description -->
                 <div class="border border-gray-200 rounded-lg p-5">
                     <h2 class="text-xl font-medium mb-4">Product Description</h2>
-                    <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{{ $product->description ?? 'No description available for this product.' }}</p>
+                    <div class="text-sm text-gray-700 leading-relaxed prose prose-sm max-w-none">
+                        {!! $product->description ?? 'No description available for this product.' !!}
+                    </div>
                 </div>
 
             </div>
