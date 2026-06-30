@@ -5,7 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="text-3xl font-black text-purple-900 drop-shadow-lg">🛍️ ShopSphere</a>
+                    <a href="{{ route('dashboard') }}" class="hover:scale-105 transition-transform duration-300">
+                        <x-application-logo class="h-10 w-auto" :showText="true" />
+                    </a>
                 </div>
 
                 <!-- Navigation Links -->
@@ -22,18 +24,18 @@
                 </div>
 
                 <!-- Search Bar -->
-                <div class="flex-1 max-w-lg mx-8 hidden md:block items-center flex">
-                    <form action="{{ route('products.index') }}" method="GET" class="w-full">
-                        <div class="relative">
-                            <input type="text" name="search" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 rounded-full border-2 border-blue-200 focus:border-blue-500 focus:outline-none" value="{{ request('search') }}">
-                            <div class="absolute left-3 top-2.5 text-gray-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
+            <div class="flex-1 max-w-2xl mx-8 hidden md:flex items-center justify-center">
+                <form action="{{ route('products.index') }}" method="GET" class="w-full">
+                    <div class="relative">
+                        <input type="text" name="search" placeholder="Search products..." class="w-full pl-11 pr-4 py-2.5 rounded-full border-2 border-indigo-100 bg-gray-50 focus:bg-white focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all shadow-sm text-gray-700 font-medium placeholder-gray-400" value="{{ request('search') }}">
+                        <div class="absolute left-4 top-3 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
