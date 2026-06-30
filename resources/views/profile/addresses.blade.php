@@ -11,6 +11,17 @@
             </div>
         @endif
 
+        @if ($errors->any())
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-xl shadow-md">
+                <p class="font-bold mb-2">Oops! Please fix the following errors:</p>
+                <ul class="list-disc list-inside text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!-- Add Address Form -->
         <div class="bg-white rounded-2xl shadow-2xl p-8 mb-8 border-2 border-purple-300">
             <h2 class="text-2xl font-black text-purple-900 mb-6">➕ Add New Address</h2>
